@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use Auth;
+use Illuminate\Http\Request;
+use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -33,11 +35,10 @@ class AuthController extends Controller
     /**
      * Create a new authentication controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'doLogout']);
     }
 
     /**
@@ -49,9 +50,9 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'name' => 'required|max:15',
+            'email' => 'required|email|max:100|unique:users',
+            'password' => 'required|min:5|confirmed',
         ]);
     }
 
@@ -68,5 +69,52 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function showLogin()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * Attempting to login into the system
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function doLogin(Request $request)
+    {
+        $input = $request->all();
+
+        if(empty($input['username']) || empty($input['password'])) {
+            \Log::warning('Error on login - empty values');
+            return redirect()->back()->exceptInput('password');
+        }
+
+        $rules = array(
+            'username'  => 'required|alphaNum|min:5',
+            'password'  => 'required|alphaNum|min:5'
+        );
+        \Log::info("Validate user information");
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()){
+            \Log::warning('Error to validate login data - ' . $validator->messages());
+            return redirect()->back()->exceptInput('password');
+        }
+
+        if (Auth::attempt($input)){
+            \Log::info('Login Successful');
+            return redirect()->route('/');
+        }else{
+            \Log::warning('Error on login, incorrect credentials');
+            return redirect()->back()->exceptInput('password');
+        }
+    }
+
+    public function doLogout()
+    {
+        \Log::info('Attempting to logout the system');
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

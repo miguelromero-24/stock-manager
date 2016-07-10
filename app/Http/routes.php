@@ -11,6 +11,30 @@
 |
 */
 
-Route::get('/', function () {
-    return "Hola Mundo";
+/*
+ * Login Routes
+ */
+
+
+use App\Models\User;
+
+Route::group(['namespace' => 'Auth'], function(){
+    Route::get('login', 'AuthController@showLogin');
+    Route::post('login', 'AuthController@doLogin');
+    Route::post('logout', 'AuthController@doLogout');
+    Route::get('/', 'HomeController@index');
 });
+
+//
+//Route::get('test', function(){
+//    return User::create([
+//        'username' => 'admintest',
+//        'email' => 'admin@localhost',
+//        'password' => bcrypt('cuchuflus5'),
+//        'security_question' => 'test',
+//        'security_answer'   => 'First'
+//    ]);
+//});
+
+
+Route::get('/', 'HomeController@index');
