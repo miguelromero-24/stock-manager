@@ -101,8 +101,10 @@ class AuthController extends Controller
             \Log::warning('Error to validate login data - ' . $validator->messages());
             return redirect()->back()->exceptInput('password');
         }
-
-        if (Auth::attempt($input)){
+//        dd($input);
+        $loginAttemp = Auth::attempt($input);
+        // TODO fix session variable - Log-out automatically
+        if ($loginAttemp){
             \Log::info('Login Successful');
             return redirect()->route('/');
         }else{
@@ -115,6 +117,6 @@ class AuthController extends Controller
     {
         \Log::info('Attempting to logout the system');
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('show.login');
     }
 }

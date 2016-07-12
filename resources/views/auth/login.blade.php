@@ -1,27 +1,40 @@
-@extends('template')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
 
-@section('content')
-    <div class="mdl-grid demo-content">
-        <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
-            <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--5-col-tablet mdl-cell--12-col-desktop">
-                <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                    <h2 class="mdl-card__title-text">Login</h2>
-                </div>
-                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                    {{ Form::open(array('url' => url('login'), 'method' => 'post', 'id' => 'loginForm')) }}
-                    {{ Form::label('username', 'Usuario: ') }}
-                    {{ Form::text('username', null, array('class' => 'mdl-textfield')) }}
-                    {{ Form::label('password', 'Pass: ') }}
-                    {{ Form::password('password',  array('class' => 'mdl-textfield')) }}
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                    <a href="#" onclick="document.getElementById('loginForm').submit();"
-                       class="mdl-button mdl-js-button mdl-js-ripple-effect"
-                       data-upgraded=",MaterialButton,MaterialRipple">Enviar<span
-                                class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-                </div>
-                {{ Form::close() }}
-            </div>
+    <title>Login Page</title>
+
+    @include('partials.css')
+
+</head>
+
+<body class="login-img3-body">
+
+<div class="container">
+    {{ Form::open(array('url' => url('login'), 'method' => 'post', 'id' => 'loginForm', 'class' => 'login-form')) }}
+    <div class="login-wrap">
+        <p class="login-img"><i class="icon_lock_alt"></i></p>
+
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon_profile"></i></span>
+            {{ Form::text('username', null, array('class' => 'form-control', 'placeholder' => 'Usuario')) }}
         </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+            {{ Form::password('password',  array('class' => 'form-control', 'placeholder' => 'Password')) }}
+        </div>
+        {{ Form::hidden('_token', csrf_token()) }}
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
     </div>
-@stop
+    {{ Form::close() }}
+</div>
+
+
+</body>
+</html>

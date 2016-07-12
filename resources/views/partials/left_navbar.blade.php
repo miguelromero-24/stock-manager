@@ -1,43 +1,69 @@
-<div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-    <header class="demo-drawer-header">
-        <img src={{ asset('dash/images/user.jpg') }} class="demo-avatar">
-        <div class="demo-avatar-dropdown">
-            <span>hello@example.com</span>
-            <div class="mdl-layout-spacer"></div>
-            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                <i class="material-icons" role="presentation">arrow_drop_down</i>
-                <span class="visuallyhidden">Accounts</span>
-            </button>
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                <li class="mdl-menu__item">hello@example.com</li>
-                <li class="mdl-menu__item">info@example.com</li>
-                <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-            </ul>
-        </div>
-    </header>
-    <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">home</i>Home</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">inbox</i>Inbox</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">delete</i>Trash</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">report</i>Spam</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">forum</i>Forums</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">flag</i>Updates</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">local_offer</i>Promos</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">shopping_cart</i>Purchases</a>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">people</i>Social</a>
-
-        <div class="mdl-layout-spacer"></div>
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                   role="presentation">help_outline</i><span
-                    class="visuallyhidden">Help</span></a>
-    </nav>
-</div>
+<!--sidebar start-->
+<aside>
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a class="" href="{{ route('/') }}">
+                    <i class="icon_house_alt"></i>
+                    <span>Main</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_document_alt"></i>
+                    <span>Licitaciones</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{{ route('tender.index') }}">Lista</a></li>
+                    <li><a class="" href="{{ route('tender.new') }}">Nueva Licitacion</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_chat"></i>
+                    <span>Clientes</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{{ route('clients.index') }}">Lista</a></li>
+                    <li><a class="" href="{{ route('clients.new') }}">Nuevo Cliente</a></li>
+                    {{--<li><a class="" href="grids.html">Grids</a></li>--}}
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_desktop"></i>
+                    <span>Productos</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{{ route('products.index') }}">Lista</a></li>
+                    <li><a class="" href="{{ route('products.new') }}">Nuevo Producto</a></li>
+                    {{--<li><a class="" href="grids.html">Grids</a></li>--}}
+                </ul>
+            </li>
+            <li>
+                <a class="" href="widgets.html">
+                    <i class="icon_genius"></i>
+                    <span>Stock</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_table"></i>
+                    <span>Compras</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="general.html">Lista</a></li>
+                    <li><a class="" href="buttons.html">Nuevo Producto</a></li>
+                    {{--<li><a class="" href="grids.html">Grids</a></li>--}}
+                </ul>
+            </li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+<!--sidebar end-->

@@ -14,27 +14,33 @@
 /*
  * Login Routes
  */
-
-
-use App\Models\User;
-
 Route::group(['namespace' => 'Auth'], function(){
-    Route::get('login', 'AuthController@showLogin');
+    Route::get('login', ['as' => 'show.login', 'uses' => 'AuthController@showLogin']);
     Route::post('login', 'AuthController@doLogin');
-    Route::post('logout', 'AuthController@doLogout');
-    Route::get('/', 'HomeController@index');
+    Route::get('logout', ['as' => 'do.logout', 'uses' => 'AuthController@doLogout']);
 });
 
-//
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', ['as' => '/', 'uses' => 'HomeController@index']);
+    Route::get('tender', ['as' => 'tender.index', 'uses' => 'TendersController@index']);
+    Route::get('tender/new', ['as' => 'tender.new', 'uses' => 'TendersController@showNew']);
+    Route::post('tender/save', ['as' => 'tender.save', 'uses' => 'TendersController@saveNew']);
+
+    Route::get('clients', ['as' => 'clients.index', 'uses' => 'ClientsController@index']);
+    Route::get('clients/new', ['as' => 'clients.new', 'uses' => 'ClientsController@showNew']);
+    Route::post('clients/save', ['as' => 'clients.save', 'uses' => 'ClientsController@saveNew']);
+
+    Route::get('products', ['as' => 'products.index', 'uses' => 'ProductsController@index']);
+    Route::get('products/new', ['as' => 'products.new', 'uses' => 'ProductsController@showNew']);
+    Route::post('products/save', ['as' => 'products.save', 'uses' => 'ProductsController@saveNew']);
+});
+
 //Route::get('test', function(){
 //    return User::create([
 //        'username' => 'admintest',
 //        'email' => 'admin@localhost',
 //        'password' => bcrypt('cuchuflus5'),
 //        'security_question' => 'test',
-//        'security_answer'   => 'First'
+//        'security_answer'   => 'First',
 //    ]);
 //});
-
-
-Route::get('/', 'HomeController@index');
