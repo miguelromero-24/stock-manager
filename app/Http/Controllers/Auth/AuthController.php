@@ -33,6 +33,12 @@ class AuthController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Where to redirtect the user after logout
+     * @var string
+     */
+    protected $redirectAfterLogout = '/login';
+
+    /**
      * Create a new authentication controller instance.
      *
      */
@@ -89,7 +95,8 @@ class AuthController extends Controller
             \Log::warning('Error on login - empty values');
             return redirect()->back()->exceptInput('password');
         }
-
+        // TODO fix someday - authentication token
+        unset($input['_token']);
         $rules = array(
             'username'  => 'required|alphaNum|min:5',
             'password'  => 'required|alphaNum|min:5'
@@ -101,10 +108,10 @@ class AuthController extends Controller
             \Log::warning('Error to validate login data - ' . $validator->messages());
             return redirect()->back()->exceptInput('password');
         }
-//        dd($input);
-        $loginAttemp = Auth::attempt($input);
+
+        $loginAttempt = Auth::attempt($input);
         // TODO fix session variable - Log-out automatically
-        if ($loginAttemp){
+        if ($loginAttempt){
             \Log::info('Login Successful');
             return redirect()->route('/');
         }else{
