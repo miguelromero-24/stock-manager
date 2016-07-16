@@ -8,5 +8,13 @@ class Stocks extends Model
 {
     protected $table = 'stocks';
 
-    protected $filliable = ['product_id', 'tender_id', 'quantity', 'given', 'to_give'];
+    protected $fillable = ['product_id', 'available_quantity', 'requested_quantity', 'total_quantity'];
+
+    /**
+     * Get the product associated with the stock
+     */
+    public function phone()
+    {
+        return $this->hasOne('App\Models\Products', 'product_id');
+    }
 }

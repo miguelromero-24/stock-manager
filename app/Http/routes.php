@@ -33,6 +33,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('products', ['as' => 'products.index', 'uses' => 'ProductsController@index']);
     Route::get('products/new', ['as' => 'products.new', 'uses' => 'ProductsController@showNew']);
     Route::post('products/save', ['as' => 'products.save', 'uses' => 'ProductsController@saveNew']);
+
+    Route::get('stock', ['as' => 'stock.index', 'uses' => 'StockController@index']);
+
+    Route::get('purchases', ['as' => 'purchases.index', 'uses' => 'PurchasesControllerController@index']);
+    Route::get('purchases/new', ['as' => 'purchases.new', 'uses' => 'PurchasesController@showNew']);
+    Route::post('purchases/save', ['as' => 'purchases.save', 'uses' => 'PurchasesController@saveNew']);
 });
 
 //Route::get('test', function(){

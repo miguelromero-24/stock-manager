@@ -44,21 +44,27 @@
                     {{--<li><a class="" href="grids.html">Grids</a></li>--}}
                 </ul>
             </li>
-            <li>
-                <a class="" href="widgets.html">
-                    <i class="icon_genius"></i>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_desktop"></i>
                     <span>Stock</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
                 </a>
+                <ul class="sub">
+                    <li><a class="" href="{{ route('stock.index') }}">Lista</a></li>
+                    {{--<li><a class="" href="{{ route('stock.new') }}">Nuevo Producto</a></li>--}}
+                    {{--<li><a class="" href="grids.html">Grids</a></li>--}}
+                </ul>
             </li>
             <li class="sub-menu">
                 <a href="javascript:;" class="">
-                    <i class="icon_table"></i>
+                    <i class="icon_calculator_alt"></i>
                     <span>Compras</span>
                     <span class="menu-arrow arrow_carrot-right"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="general.html">Lista</a></li>
-                    <li><a class="" href="buttons.html">Nuevo Producto</a></li>
+                    {{--<li><a class="" href="general.html">Lista</a></li>--}}
+                    <li><a class="" href="{{ route('purchases.new') }}">Nueva Compra</a></li>
                     {{--<li><a class="" href="grids.html">Grids</a></li>--}}
                 </ul>
             </li>
