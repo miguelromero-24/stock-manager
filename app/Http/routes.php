@@ -25,6 +25,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('tender', ['as' => 'tender.index', 'uses' => 'TendersController@index']);
     Route::get('tender/new', ['as' => 'tender.new', 'uses' => 'TendersController@showNew']);
     Route::post('tender/save', ['as' => 'tender.save', 'uses' => 'TendersController@saveNew']);
+    Route::get('tender/edit/{id}', ['as' => 'tender.edit', 'uses' => 'TendersController@edit']);
+    Route::post('tender/update/{id}', ['as' => 'tender.update', 'uses' => 'TendersController@update']);
+    Route::post('tender/destroy/{id}', ['as' => 'tender.destroy', 'uses' => 'TendersController@destroy']);
 
     Route::get('clients', ['as' => 'clients.index', 'uses' => 'ClientsController@index']);
     Route::get('clients/new', ['as' => 'clients.new', 'uses' => 'ClientsController@showNew']);

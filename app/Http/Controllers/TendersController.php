@@ -7,6 +7,7 @@ use App\Models\Clients;
 use App\Models\Tenders;
 use DB;
 use Illuminate\Http\Request;
+use Mockery\CountValidator\Exception;
 use Validator;
 
 class TendersController extends Controller
@@ -63,6 +64,50 @@ class TendersController extends Controller
         }
 
         return route('tender.index');
+    }
 
+    public function edit($id)
+    {
+        \Log::info("Show specific tender - Id: {$id}");
+        
+        if ($tender = Tenders::find($id)){
+            \Log::info("Tender {$id} found it!");
+            return view('tender.new', compact('tender'));
+        }else{
+            \Log::warning("Tender {$id} not found");
+            return redirect()->back()->with('error', 'Licitacion no encontrada');
+        }
+    }
+    
+    public function update($id, Request $request)
+    {
+        \Log::info("Update specific tender - Id: {$id}");
+        $tender = Tenders::find($id);
+        if ($tender->update($request)){
+            \Log::info("Tender Updated: " . $tender->toArray());
+            return redirect()->route('/')->with('success', 'Licitacion actualizada con exito');
+        }else{
+            \Log::warning("Error while updating tender - Id: {$id}");
+            return redirect()->back()->with('error', 'Error al actualizar la Licitacion');
+        }
+
+    }
+
+    public function destroy($id)
+    {
+        \Log::info("Deleting a given tender Id: {$id}");
+        if ($tender = Tenders::find($id)){
+            try {
+                Tenders::destroy($id);
+                \Log::info("Tender {$id} destroy");
+                return redirect('tender')->with('success', 'Licitacion eliminada');
+            }catch (Exception $e){
+                \Log::warning("Erro trying to destroy given tender Id: {$id} " . $e->getMessage());
+                return redirect()->back()->with('error', 'No se pudo eliminar el registro');
+            }
+        }else{
+            \Log::warning("Tender Id: {$id} not found");
+            return redirect()->back()->with('error', 'Licitacion no encontrada');
+        }
     }
 }

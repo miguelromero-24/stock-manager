@@ -6,7 +6,7 @@
                 <header class="panel-heading">
                     Listado de Licitaciones
                 </header>
-                <table class="table table-striped">
+                <table class="table table-striped table-advance table-hover">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -16,6 +16,7 @@
                         <th>Tipo</th>
                         <th>Inicio</th>
                         <th>Fin</th>
+                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -28,6 +29,12 @@
                             <td>@if($tender->tender_type == 1) Bienes @else Servicios @endif</td>
                             <td>{{ $tender->date_start }}</td>
                             <td>{{ $tender->date_end }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="{{ url("tender/edit/{$tender->id}") }}" title="Editar"><i class="icon_pencil"></i></a>
+                                    <a class="btn btn-danger" href="{{ url("tender/destroy/{$tender->id}") }}" title="Eliminar"><i class="icon_minus-06"></i></a>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
