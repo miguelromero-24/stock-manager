@@ -61,7 +61,7 @@
     <script type="text/javascript" src="{{ asset('dash/js/moment-with-locales.js')}}"></script>
     <script type="text/javascript" src="{{ asset('dash/js/datetime.min.js')}}"></script>
     <script>
-        $(function() {
+        $(function () {
             $('#date_start').datetimepicker({
                 locale: 'es',
                 format: 'YYYY-MM-DD'
@@ -86,7 +86,7 @@
             labelField: 'description',
             searchField: 'description',
             render: {
-                item: function(item, escape){
+                item: function (item, escape) {
                     return '<div><span class="label label-primary">' + escape(item.description) + '</span></div>';
                 }
             },

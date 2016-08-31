@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Clients;
+use App\Models\Products;
 use App\Models\Tenders;
 use DB;
 use Illuminate\Http\Request;
@@ -60,6 +61,7 @@ class TendersController extends Controller
         }
 
         if (!Tenders::create($input)){
+            \Log::warning('Error saving new Tender');
             return redirect()->back()->withInput();
         }
 
@@ -69,10 +71,10 @@ class TendersController extends Controller
     public function edit($id)
     {
         \Log::info("Show specific tender - Id: {$id}");
-        
+
         if ($tender = Tenders::find($id)){
             \Log::info("Tender {$id} found it!");
-            return view('tender.new', compact('tender'));
+            return view('tenders.new', compact('tender'));
         }else{
             \Log::warning("Tender {$id} not found");
             return redirect()->back()->with('error', 'Licitacion no encontrada');
@@ -109,5 +111,32 @@ class TendersController extends Controller
             \Log::warning("Tender Id: {$id} not found");
             return redirect()->back()->with('error', 'Licitacion no encontrada');
         }
+    }
+
+    public function showDetails($id)
+    {
+        \Log::info("Upload details for tender Id: {$id}");
+        if ($tender = Tenders::find($id)){
+            $products = Products::pluck('description', 'id');
+            $measurement = Products::pluck('unit_measure', 'id');
+            return view('tenders.details', compact('tender', 'products', 'measurement'));
+        }else{
+            \Log::warning("Tender Id: {$id} not found");
+            return redirect()->back()->with('error', 'Licitacion no encontrada');
+        }
+    }
+
+
+    public function saveDetails(Request $request)
+    {
+        $items = $request->items;
+        $tender_id = $request->tender_id;
+        \Log::info("Saving details for tender Id: {$tender_id}");
+        
+        foreach ($items as $item){
+            
+        }
+
+
     }
 }
